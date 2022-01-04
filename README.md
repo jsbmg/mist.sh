@@ -13,7 +13,7 @@ The script will read the following variables from the environment:
 
 Example:
 
-`$ LOCAL_DIR=sync SSH_ADDRESS=user@host.com GPG_RECIPIENT=your@email.com mist.sh [OPTIONS]`
+```$ LOCAL_DIR=sync SSH_ADDRESS=user@host.com GPG_RECIPIENT=your@email.com mist.sh [OPTIONS]```
 
 If no options are passed, the default action is to sync the local folder with the remote archive.
 
