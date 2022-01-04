@@ -13,9 +13,6 @@
 # encrypted, and re-uploaded to the remote host, along with an md5
 # digest of its contents.
 # 
-# The local and remote folder names (LOCAL_DIR, REMOTE_DIR)
-# are defined below, and are relative to $HOME. 
-#
 # Options:
 #     --push         Copy local sync folder to remote, overwriting
 #                    it if it exists
@@ -23,32 +20,32 @@
 #                    if it exists
 #     --batch        Syncronize directories with no interaction
 #
-# Variables (required):
+# Environment variables (required):
+#     LOCAL_DIR      The name of the directory in the home folder to sync
 #     SSH_ADDRESS    The remote ssh address where the remote folder is kept
 #     GPG_RECIPIENT  The gpg id to encrypt the files with (likely your own)
 #
 # Examples:
 # Upload the directory to be synced to the remote server:
-#     $ SSH_ADDRESS=<user@host> GPG_RECIPIENT=<your-email> snc --push
+#     $ LOCAL_DIR=sync SSH_ADDRESS=<user@host> GPG_RECIPIENT=<your-email> mist.sh --push
 #
 # Syncronize the local directory with the remote server:
-#     $ SSH_ADDRESS=<user@host> GPG_RECIPIENT=<your-email> snc
+#     $ LOCAL_DIR=sync SSH_ADDRESS=<user@host> GPG_RECIPIENT=<your-email> mist.sh 
 #
 # Download the synced directory (e.g., to a new machine):
-#     $ SSH_ADDRESS=<user@host> GPG_RECIPIENT=<your-email> snc --pull
+#     $ LOCAL_DIR=sync SSH_ADDRESS=<user@host> GPG_RECIPIENT=<your-email> mist.sh --pull
 # 
 # Caveats:
 # Though the directory syncronization itself is incremental, the encrypted 
 # archive must be transfered over the network intact, therefore results 
 # will be more favorable if the sync directory is small.
 
-LOCAL_DIR=sync                  # The dir in your home folder to sync
-REMOTE_DIR=$LOCAL_DIR-remote    # The name of the remote sync folder 
-
+[[ -z $LOCAL_DIR ]] && echo "LOCAL_DIR not set."
 [[ -z $SSH_ADDRESS ]] && echo "SSH_ADDRESS not set."
 [[ -z $GPG_RECIPIENT ]] && echo "GPG_RECIPIENT not set."
-[[ -z $GPG_RECIPIENT || -z $SSH_ADDRESS ]] && exit
+[[ -z $GPG_RECIPIENT || -z $SSH_ADDRESS || -z $LOCAL_DIR ]] && exit
 
+REMOTE_DIR=$LOCAL_DIR-remote    # The name of the remote sync folder 
 REMOTE_ARCHIVE=$REMOTE_DIR.tar.gz.gpg
 
 pull() {
