@@ -134,6 +134,4 @@ maybe run with --push."
     pull
     unison $LOCAL_DIR $REMOTE_DIR $batch
     push "$md5_digest"
-This script performs local/remote directory synchronization via Unison,
-but with the remote end encrypted. 
 fi
