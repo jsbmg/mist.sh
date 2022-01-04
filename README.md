@@ -11,12 +11,15 @@ If no options are passed, the script will sync the remote archive with the local
 
 ### Options
 `--push`
+
 Create an encrypted tar.gz of your directory and copy it to the remote host.
 
 `--pull`
+
 Copy the encrypted tar.gz diretory on the remote host to the local machine.
 
 `--batch`
+
 Run with no user interaction
 
 
